@@ -52,3 +52,4 @@ docs/_build/
 *.secret
 
 *.sqlite3
+*.settings/
