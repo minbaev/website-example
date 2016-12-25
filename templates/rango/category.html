@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% extends 'rango/base.html' %}
+{% load rango_template_tags %}
+{%load staticfiles%}
+
+{% block title_block %}
+	{{category.name}}
+{% endblock %} 
+
+{% block body_block %}
+	{% if category %}
+		<h1>{{category.name}}</h1>			
+		<div id="pages">
+		{% if pages %}
+			
+			<ul>
+			{% for page in pages %}
+				<li> <a href="{%url 'rango:goto'%}?page_id={{page.id}}">{{ page.title }}</a> viewed by {{page.views}}
+				</li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<strong> No Pages in the Category</strong>
+		{% endif %}
+		</div>
+		
+
+		<div>
+			<strong id="like_count">{{category.likes}}</strong> people like this category
+			{% if user.is_authenticated %}
+				<button id="likes" data-catid="{{category.id}}"
+					class="btn btn-primary  btn-sm" type="button">
+					Like
+				</button>
+			{% endif %}
+		</div>
+	{% else %}
+		<strong>Category doesn't exist</strong>
+	{% endif %}
+	
+	{% if user.is_authenticated %}
+	<div>
+		<h1>Search with Alex</h1>
+		<br/>
+		<form class="form-inline" id="user_form"
+			method="POST" action="{% url 'rango:show_category' category.slug %}">
+			{% csrf_token %}
+			<div class="form-group">
+				<input class="form-control" type="text"
+					name="query" value="{{query}}" id="query" />
+			</div>
+			<button class="btn btn-primary" type="submit" name="submit"
+				value="Search">Search</button>
+		</form>
+		<div>
+			{% if pages_from_search %}
+				<h3>Results</h3>
+				<div class="list-group">
+				{% for result in pages_from_search %}
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">
+							<a href={{result.link}}>{{result.name}}</a>
+
+						</h4>
+
+						<p class="list-item-result-text">{{result.snippet}}</p>
+
+
+						
+						<button class="rango-add btn btn-info btn-sm" data-catid="{{category.id}}"
+								data-page-title="{{result.name}}" data-page-url="{{result.link}}" type="button">Add</button>
+						
+					
+					</div>
+				{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endif %}
+	
+{% endblock %}

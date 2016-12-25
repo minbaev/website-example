@@ -1,0 +1,28 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+{% load bootstrap_toolkit %}
+
+{% block title %} {{selecteduser.username}} {% endblock %}
+
+{% block body_block %}
+	<h1>{{selecteduser.username}} profile</h1>
+	<img src={{MEDIA_URL}}{{userprofile.picture}}
+		width="300"
+		height="300"
+		alt="{{selecteduser.username}}">
+	<br/>
+	<div>
+		{% if selecteduser.username == user.username %}
+		<form class="form-inline "method="POST" action="." enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Update"/>
+		</form>
+		{% else %}
+		<p><strong>Website: </strong> <a href="{{userprofile.website}}">
+			{{userprofile.website}}</a></p>
+		{% endif %}
+	</div>
+	<div id="edit_profile"></div>
+	
+{% endblock %}

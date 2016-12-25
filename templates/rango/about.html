@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends 'rango/base.html' %}
+{%load staticfiles%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js">
+<script src="{% static 'js/rango-jquery.js' %}"></script>
+{% block title_block %}
+	About
+{% endblock %} 
+
+{% block body_block %}
+		<h1>
+			About this page <br/>
+			
+		</h1>
+		
+		<div>
+			{% if user.username %}
+				{{user.username}}, you visited: <strong>{{visits}}</strong> times <br/>
+			{% else %}
+				Anon, you visited: <strong>{{visits}}</strong> times <br/>
+			{% endif %}
+		</div>
+		<div class="jquery_play">
+			<button class="btn btn-primary" id="add-text-btn">
+					Add text!
+			</button>
+			<button class="btn btn-primary" id="clean-text-btn">
+					Clean text!
+			</button>
+			<p id="example1"></p>
+		</div>
+		
+		<div>
+			<img alt="cat" src="{{ MEDIA_URL}}cat.jpg">
+		</div>
+{% endblock %}

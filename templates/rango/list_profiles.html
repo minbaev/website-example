@@ -1,0 +1,40 @@
+{% extends 'rango/base.html'%}
+{% load staticfiles%}
+
+{%block title%}User Profiles{%endblock%}
+
+{% block body_block %}
+<h1>User Profiles</h1>
+
+<div class="panel">
+	{% if userprofile_list %}
+		<div class="panel_heading">
+			<div class="list_group">
+				{% for listuser in userprofile_list %}
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
+						{% if listuser.user.username == user.username %}
+							<a href="{% url 'rango:profile' listuser.user.username %}">
+								<strong>{{ listuser.user.username }}</strong>-->that's you mate! </a>
+								
+						{% else %}
+							<a href="{% url 'rango:profile' listuser.user.username %}">
+								{{ listuser.user.username }}</a>
+						{% endif %}
+					</h4>
+					{% if listuser.picture %}
+					<img width="64" height="64" src={{MEDIA_URL}}{{listuser.picture}}/>
+					{% else %}
+					<img width="64" height="64" src="{% static 'images/trump.jpg'%}"/>
+					{% endif %}
+				</div>
+				{% endfor %}
+			
+			</div>
+		
+		</div>
+	{% else %}
+		<p>There are no users to display</p>
+	{% endif %}
+</div>
+{% endblock %}

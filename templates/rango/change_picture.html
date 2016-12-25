@@ -1,0 +1,32 @@
+{% extends 'rango/base.html' %}
+{%load staticfiles%}
+
+{% block title_block %}
+	
+{% endblock %}
+
+{%block body_block %}
+	<h1>Change picture</h1>
+	<div>
+		{% if user.is_authenticated %}
+			<strong>Change Picture</strong>
+			<form id="change_picture" method="POST" action="{% url 'rango:change_picture' %}" 
+				enctype="multipart/form-data">
+				{% csrf_token %}
+				
+				<input type="file" name="picture" value="" accept="image/*" />
+	
+
+				<input type="submit" value="Upload" />
+				
+			
+			</form>
+			
+
+
+		{% endif %}
+	</div>
+
+	
+
+{% endblock %}

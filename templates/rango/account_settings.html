@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'rango/base.html' %}
+{%load staticfiles%}
+
+{% block title_block %}
+	Settings
+{% endblock %} 
+
+{% block body_block %}
+		{% if user.is_authenticated %}
+		
+			<h1> {{user.username}} settings</h1>
+			<div>
+				<li class="list-group-item"><a href = "{% url 'auth_password_change' %}">Change Password</a></li>
+			</div>
+		{% endif %}
+{% endblock %}

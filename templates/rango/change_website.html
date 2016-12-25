@@ -1,0 +1,31 @@
+{% extends 'rango/base.html' %}
+{%load staticfiles%}
+
+{% block title_block %}
+	
+{% endblock %}
+
+{%block body_block %}
+	<h1>Change picture</h1>
+	<div>
+		{% if user.is_authenticated %}
+			<strong>Change Website</strong>
+			<form id="change_website" method="POST" action="{% url 'rango:change_website' %}" >
+				{% csrf_token %}
+				
+				<input type="url" name="website" value="" />
+	
+
+				<input type="submit" value="Upload Website" />
+				
+			
+			</form>
+			
+
+
+		{% endif %}
+	</div>
+
+	
+
+{% endblock %}

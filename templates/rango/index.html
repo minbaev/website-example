@@ -1,0 +1,60 @@
+<!doctype html>
+{% extends 'rango/base.html' %}
+{%load staticfiles%}
+
+{% block title_block %}
+	Index
+{% endblock %}
+
+{% block body_block %}
+		<div class="jumbotron">
+		<h1 class="display-3"> Rango says...</h1>
+			{% if user.is_authenticated %}
+				 <h1>Howdy, {{user.username}}! What's shakin?</h1> 
+			{% else %}
+				<h1>Hey there partner!</h1>
+			{% endif %} 
+		</div>
+		
+		<div class="row marketing">
+			<div class="col-lg-6">
+			<h4>Most Liked Categories</h4>
+			<p>
+			{% if most_liked_categories %}
+			<ul class="list-group">
+				{% for category in most_liked_categories %}
+					<li class="list-group-item">
+						<a href="{% url 'rango:show_category' category.slug %}">{{category.name}}</a>
+					</li>
+				{% endfor %}
+			</ul>	
+			{% else %} 
+				<strong>There are no categories</strong>
+			{% endif %}
+			</p>
+			</div>
+			<div class="col-lg-6">
+			
+			<h4>Most Viewed Pages</h4>
+			<p>
+		
+			{% if most_viewed_pages %}
+			<ul class="list-group">
+				{% for page in most_viewed_pages %}
+					<li class="list-group-item">
+						<a href="{{page.url}}">{{page.title}}</a>
+						 viewed by {{page.views}}
+					</li>
+				{% endfor %}
+			</ul>	
+			{% else %} 
+				<strong>There are no pages</strong>
+			{% endif %}
+			</p>
+			
+			</div>
+		</div>
+		
+
+	
+{% endblock %}
